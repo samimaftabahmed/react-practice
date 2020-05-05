@@ -18,12 +18,19 @@ export default class Counters extends Component {
             <div>
                 {
                     this.state.counters.map(counter =>
-                            <Counter key={counter.id} value={counter.value} selected={true}>
-                                <h5>Counter #{counter.id}</h5>
-                            </Counter>
-                        )
+                        <Counter key={counter.id} onDelete={this.handleDelete} counter={counter}>
+                            <h5>Counter #{counter.id}</h5>
+                        </Counter>
+                    )
                 }
             </div>
         );
+    }
+
+
+    handleDelete = (counterId) => {
+        console.log("Delete called", counterId);
+        const counters = this.state.counters.filter(counter => counter.id !== counterId);
+        this.setState({counters});
     }
 }

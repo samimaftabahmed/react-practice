@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 export default class Counter extends Component {
     state = {
-        count: this.props.value,
+        count: this.props.counter.value,
         tags: ["tag1", "tag2"],
         imageUrl: "../favicon.ico",
     };
@@ -32,20 +32,27 @@ export default class Counter extends Component {
 
                 <button onClick={this.handleDecrement} className="btn btn-success"> Decrement</button>
 
+                <button onClick={this.handleDelete} className="btn btn-outline-danger btn-sm m-4"> Delete</button>
+
                 {this.renderTags()}
+
             </div>
         );
         // JSX ends
     }
 
     handleIncrement = () => {
-        this.setState({count: ++this.state.count});
+        this.setState((state) => ({count: state.count + 1}));
         console.log(`increment clicked ${this.state.count}`);
     }
 
     handleDecrement = () => {
-        this.setState({count: --this.state.count});
+        this.setState((state) => ({count: state.count - 1}));
         console.log(`decrement clicked ${this.state.count}`)
+    }
+
+    handleDelete = () => {
+        this.props.onDelete(this.props.counter.id)
     }
 
     renderTags() {
