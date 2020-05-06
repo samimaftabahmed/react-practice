@@ -15,22 +15,57 @@ export default class Counters extends Component {
     render() {
 
         return (
-            <div>
-                {
-                    this.state.counters.map(counter =>
-                        <Counter key={counter.id} onDelete={this.handleDelete} counter={counter}>
-                            <h5>Counter #{counter.id}</h5>
-                        </Counter>
-                    )
-                }
+            <div className="container">
+                <div className="row">
+                    <div className="col-8 offset-2">
+                        <br/><br/>
+
+                        <button className="btn btn-outline-primary" onClick={this.handleReset}>Reset</button>
+                        <br/><br/>
+                        {
+                            this.state.counters.map(counter =>
+                                <Counter key={counter.id} onDelete={this.handleDelete}
+                                         onIncrement={this.handleIncrement}
+                                         onDecrement={this.handleDecrement} counter={counter}>
+                                    <h5>Counter #{counter.id}</h5>
+                                </Counter>
+                            )
+                        }
+                    </div>
+                </div>
             </div>
         );
-    }
+
+    };
 
 
-    handleDelete = (counterId) => {
-        console.log("Delete called", counterId);
-        const counters = this.state.counters.filter(counter => counter.id !== counterId);
+    handleIncrement = (counter) => {
+        const counters = [...this.state.counters];
+        const index = counters.indexOf(counter);
+        counters[index] = {...counter};
+        counters[index].value++;
         this.setState({counters});
     }
+
+    handleDecrement = (counter) => {
+        const counters = [...this.state.counters];
+        const index = counters.indexOf(counter);
+        counters[index] = {...counter};
+        counters[index].value--;
+        this.setState({counters});
+    }
+
+    handleDelete = (counterId) => {
+        const counters = this.state.counters.filter(counter => counter.id !== counterId);
+        this.setState({counters});
+    };
+
+    handleReset = () => {
+        const counters = this.state.counters.map(c => {
+            c.value = 0;
+            return c;
+        })
+
+        this.setState({counters});
+    };
 }
