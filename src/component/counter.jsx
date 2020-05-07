@@ -87,8 +87,8 @@ export default class Counter extends Component {
     }
 
     formatCount() {
-        const count = this.props.counter.value;
-        return count === 0 ? <h1>zero</h1> : count;
+        const {value} = this.props.counter;
+        return value === 0 ? <h1>zero</h1> : value;
     }
 }
 

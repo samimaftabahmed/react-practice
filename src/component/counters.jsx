@@ -24,8 +24,5 @@ export default class Counters extends Component {
                 </div>
             </div>
         );
-
     };
-
-
 }
