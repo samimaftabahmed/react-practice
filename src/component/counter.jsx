@@ -15,6 +15,8 @@ export default class Counter extends Component {
     render() {
         console.log("props", this.props);
 
+        const {onIncrement, onDecrement, counter, onDelete} = this.props;
+
         return (
             // JSX: JS with HTML
             <div>
@@ -24,22 +26,18 @@ export default class Counter extends Component {
                 {/*<br/>*/}
 
                 {/*<button onClick={this.handleIncrement} className="btn btn-success"> Increment</button>*/}
-                <button onClick={() => this.props.onIncrement(this.props.counter)}
-                        className="btn btn-success m-2">
-                    Increment
-                </button>
+                <button onClick={() => onIncrement(counter)} className="btn btn-success m-2"> Increment</button>
 
                 <span style={{fontSize: 20, fontWeight: "bold"}} className={this.getBadgeClass()}>
                     {this.formatCount()}
                 </span>
 
                 {/*<button onClick={this.handleDecrement} className="btn btn-success"> Decrement</button>*/}
-                <button onClick={() => this.props.onDecrement(this.props.counter)}
-                        className="btn btn-success m-2">
-                    Decrement
-                </button>
+                <button onClick={() => onDecrement(counter)} className="btn btn-success m-2">Decrement</button>
 
-                <button onClick={this.handleDelete} className="btn btn-outline-danger btn-sm m-4"> Delete</button>
+                <button onClick={() => onDelete(counter.id)} className="btn btn-outline-danger btn-sm m-4">
+                    Delete
+                </button>
 
                 {/*{this.renderTags()}*/}
 
@@ -57,10 +55,6 @@ export default class Counter extends Component {
     //     this.setState((state) => ({count: state.count - 1}));
     //     console.log(`decrement clicked ${this.state.count}`)
     // }
-
-    handleDelete = () => {
-        this.props.onDelete(this.props.counter.id)
-    }
 
     // renderTags() {
     //     if (this.state.tags.length === 0) {

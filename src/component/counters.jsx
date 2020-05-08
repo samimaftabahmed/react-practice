@@ -5,18 +5,19 @@ export default class Counters extends Component {
 
     render() {
 
+        const {onDelete, onDecrement, onIncrement, onReset, counters} = this.props;
+
         return (
             <div className="row">
                 <div className="col-8 offset-2">
                     <br/><br/>
 
-                    <button className="btn btn-outline-primary" onClick={this.props.onReset}>Reset</button>
+                    <button className="btn btn-outline-primary" onClick={onReset}>Reset</button>
                     <br/><br/>
                     {
-                        this.props.counters.map(counter =>
-                            <Counter key={counter.id} onDelete={this.props.onDelete}
-                                     onIncrement={this.props.onIncrement}
-                                     onDecrement={this.props.onDecrement} counter={counter}>
+                        counters.map(counter =>
+                            <Counter key={counter.id} onDelete={onDelete} counter={counter}
+                                     onIncrement={onIncrement} onDecrement={onDecrement}>
                                 <h5>Counter #{counter.id}</h5>
                             </Counter>
                         )

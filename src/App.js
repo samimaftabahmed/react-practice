@@ -59,7 +59,6 @@ export default class App extends Component {
     };
 
     getQuantitySum(counters) {
-
         let sum = 0;
 
         for (let c of counters) {
