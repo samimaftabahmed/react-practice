@@ -17,7 +17,8 @@ export default class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <NavBar totalCounters={this.state.counters.filter(c => c.value > 0).length}/>
+                <NavBar totalCounters={this.state.counters.filter(c => c.value > 0).length}
+                        totalQuantity={this.getQuantitySum(this.state.counters)}/>
                 <main className="container">
                     <Counters counters={this.state.counters} onReset={this.handleReset}
                               onIncrement={this.handleIncrement}
@@ -56,4 +57,17 @@ export default class App extends Component {
 
         this.setState({counters});
     };
+
+    getQuantitySum(counters) {
+
+        let sum = 0;
+
+        for (let c of counters) {
+            if (c.value > 0) {
+                sum += c.value;
+            }
+        }
+
+        return sum;
+    }
 }
