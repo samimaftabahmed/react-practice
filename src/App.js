@@ -6,16 +6,36 @@ import Counters from "./component/counters";
 export default class App extends Component {
   state = {
     counters: [
-      { id: 1, value: 4 },
-      { id: 2, value: 0 },
-      { id: 3, value: 2 },
-      { id: 4, value: 0 },
+      { id: 1, value: 4, liked: true },
+      { id: 2, value: 0, liked: false },
+      { id: 3, value: 2, liked: false },
+      { id: 4, value: 0, liked: true },
     ],
   };
 
-  initialState = this.state;
+  initialState = { ...this.state };
+
+  constructor() {
+    super();
+    console.log("App - Constructor called");
+    //setting state here
+    // donot call setState, as Component is not rendered
+  }
+
+  componentDidMount() {
+    console.log("App - Mounted");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("App - Updated");
+    console.log("PrevProps: ", prevProps);
+    console.log("PrevState: ", prevState);
+  }
+
+  // componentWillUnmount;
 
   render() {
+    console.log("App - Rendered");
     return (
       <React.Fragment>
         <NavBar
@@ -29,8 +49,10 @@ export default class App extends Component {
             onIncrement={this.handleIncrement}
             onDecrement={this.handleDecrement}
             onDelete={this.handleDelete}
+            onLike={this.handleLike}
           />
         </main>
+        <Zang />
       </React.Fragment>
     );
   }
@@ -62,6 +84,15 @@ export default class App extends Component {
 
   handleReset = () => {
     const counters = [...this.initialState.counters];
+    console.log("Counters State: ", counters);
+    this.setState({ counters });
+  };
+
+  handleLike = (counter) => {
+    const index = this.state.counters.indexOf(counter);
+    const counters = [...this.state.counters];
+    let counterNew = (counters[index] = { ...counters[index] });
+    counterNew.liked = !counterNew.liked;
     this.setState({ counters });
   };
 
@@ -74,4 +105,15 @@ export default class App extends Component {
 
     return sum;
   }
+}
+
+/**
+ * By default props can be accessed with the new API. Accessing props from constructor is deprecated.
+ * @param props - React Props
+ * @returns html
+ */
+export function Zang(props) {
+  console.log("Zangwale: ", props);
+
+  return <div>Samim</div>;
 }
